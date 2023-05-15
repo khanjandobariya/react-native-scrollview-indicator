@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import PropTypes from 'prop-types';
-import renderIf from './renderIf';
+import React, {Component} from 'react'
+import {StyleSheet, View, ScrollView} from 'react-native'
+import PropTypes from 'prop-types'
+import renderIf from './renderIf'
 
 export default class ScrollViewWithIndicator extends Component {
-
   static propTypes = {
     contentData: PropTypes.any,
     customIndicator: PropTypes.bool,
     customIndicatorWidth: PropTypes.any,
-    customIndicatorColor: PropTypes.any,
+    customIndicatorColor: PropTypes.any
   }
 
   static defaultProps = {
@@ -18,49 +17,63 @@ export default class ScrollViewWithIndicator extends Component {
     customIndicatorWidth: 3
   }
 
-  elementHeight = 0;
-  indicatorHeight = 0;
-  indicatorPosRight = 0;
+  elementHeight = 0
+  indicatorHeight = 0
+  indicatorPosRight = 0
   indicatorPos = 0
 
   constructor() {
-    super();
+    super()
     this.state = {
       position: 0
     }
   }
 
-  componentDidMount() {
-    console.log(this.props)
-  }
+  componentDidMount() {}
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={{ width: '100%' }} 
+        <ScrollView
+          style={{flex: 1}}
+          showsVerticalScrollIndicator={false}
           onScroll={(val) => {
-            this.indicatorHeight = (val.nativeEvent.layoutMeasurement.height / val.nativeEvent.contentSize.height) * val.nativeEvent.layoutMeasurement.height
-            this.setState({ position: ((val.nativeEvent.layoutMeasurement.height / val.nativeEvent.contentSize.height) * (val.nativeEvent.contentOffset.y)) })
-            this.indicatorPos = ((val.nativeEvent.layoutMeasurement.height / val.nativeEvent.contentSize.height) * (val.nativeEvent.contentOffset.y))
+            this.indicatorHeight =
+              (val.nativeEvent.layoutMeasurement.height / val.nativeEvent.contentSize.height) *
+              val.nativeEvent.layoutMeasurement.height
+            this.setState({
+              position:
+                (val.nativeEvent.layoutMeasurement.height / val.nativeEvent.contentSize.height) *
+                val.nativeEvent.contentOffset.y
+            })
+            this.indicatorPos =
+              (val.nativeEvent.layoutMeasurement.height / val.nativeEvent.contentSize.height) *
+              val.nativeEvent.contentOffset.y
           }}
           {...this.props}
         >
-          {this.props.contentData}
+          {this.props.children}
         </ScrollView>
-        {renderIf(this.props.customIndicator)(<View style={{
-          backgroundColor: this.props.customIndicatorColor, width: this.props.customIndicatorWidth, height: this.indicatorHeight,
-          position: 'absolute', right: 1, top: this.indicatorPos <= 0 ? this.indicatorPos + 1 : this.indicatorPos - 1
-        }} />)}
-
+        {renderIf(this.props.customIndicator)(
+          <View
+            style={{
+              backgroundColor: this.props.customIndicatorColor,
+              width: this.props.customIndicatorWidth,
+              height: this.indicatorHeight,
+              position: 'absolute',
+              right: 1,
+              top: this.indicatorPos <= 0 ? this.indicatorPos + 1 : this.indicatorPos - 1
+            }}
+          />
+        )}
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden'
@@ -68,13 +81,11 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
-  },
-});
-
-
+    marginBottom: 5
+  }
+})

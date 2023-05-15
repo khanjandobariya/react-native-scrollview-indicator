@@ -1,2 +1,3 @@
-import ScrollViewWithIndicator from './ScrollVIewWithIndicator';
-module.exports = ScrollViewWithIndicator
+import ScrollViewWithIndicator from './ScrollVIewWithIndicator'
+
+export default ScrollViewWithIndicator
