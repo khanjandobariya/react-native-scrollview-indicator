@@ -74,9 +74,7 @@ export default class ScrollViewWithIndicator extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   welcome: {
     fontSize: 20,
